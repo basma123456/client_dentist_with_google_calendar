@@ -20,13 +20,17 @@ use Spatie\GoogleCalendar\Event;
 Route::controller(AuthinticationController::class)->group(function(){
     Route::post('register', 'register');
     Route::post('login', 'login');
-    Route::post('make-appointment' , 'makeAppointment');
-    Route::post('delete_appointment/{id}' , 'deleteAppointment');
 
 });
+
 
 Route::middleware('auth:sanctum')->group(function (){
     Route::controller(AuthinticationController::class)->group(function(){
         Route::get('logout', 'logout');
+    });
+
+    Route::controller(\App\Http\Controllers\Api\AppointmentController::class)->group(function (){
+        Route::post('make-appointment' , 'makeAppointment');
+        Route::post('delete_appointment/{id}' , 'deleteAppointment');
     });
 });
